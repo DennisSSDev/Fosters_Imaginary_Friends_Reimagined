@@ -5,8 +5,8 @@ public class Launch_Arcade : MonoBehaviour {
 
     public int scene_to_load;
     
-    public void LoadLevel()
+    public void LoadLevel(int level)
     {
-        SceneManager.LoadScene(scene_to_load);
+        SceneManager.LoadScene(level);
     }
 }

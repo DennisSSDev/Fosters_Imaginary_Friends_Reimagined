@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+/// <summary>
+/// This is an asteroid specific class that determines should they spawn, where and what direction. Also, it 
+/// manages the difficulty in the game by increasing the amount of asteroids in the level as you rank up points.
+/// This class also secures the directions and accelerations for the asteroids and keeps a reference for them in lists
+/// </summary>
 public class Asteroids_Management : MonoBehaviour {
 
     //use the same list for small and large asteroids, but create a separate method for spawining them, as they have a different sprite and size
@@ -14,19 +21,18 @@ public class Asteroids_Management : MonoBehaviour {
     public List<bool> rotationDir = new List<bool>();
     // public GameObject asteroid_to_Spawn_From = null;
     public CountDown counter;
-    float ast_Difficulty = 0f;
-
-    //public List<GameObject> small_asteroids = new List<GameObject>();
-   // List<Vector3> small_directions = 
+    private float ast_Difficulty = 0f;//this will increase as ypou pay the game
     public int score = 0;
-    int score_dif_Threshold = 500;
+    private int score_dif_Threshold = 500;
     public int total_Asteroids_in_lvl = 0;
-    int max_Allowed = 8;
-    float height;
-    float width;
-    float zRot = 0f;
-	// Use this for initialization
-	void Start () {
+    private int max_Allowed = 8;
+    private float height;
+    private float width;
+    private float zRot = 0f;
+	/// <summary>
+    /// Use this for setting the width and height of the main camera
+    /// </summary>
+	private void Start () {
         height = 2f * Camera.main.orthographicSize;
         width = height * Camera.main.aspect;
     }
