@@ -1,25 +1,33 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// this script is used specifically for player respawns
+/// </summary>
 public class Spawn_Management : MonoBehaviour {
-
-    // Use this for initialization
     public Vehicle player;
     public GameObject prefab;
-    Bullets bullets;
-    float spawnDelay = 0f;
-    float moveDelay = 0f;
-    float actually_start_working_timer = 0f;
+    private Bullets bullets;
+    private float spawnDelay = 0f;
+    private float moveDelay = 0f;
+    private float actually_start_working_timer = 0f;
     public bool alive = true;
     public SpriteRenderer arrow_rend;
     private AudioSource badunk;
-    void Start()
+    /// <summary>
+    /// Sound effect that will play when the player dies and respawns
+    /// </summary>
+    private void Start()
     {
         badunk = GetComponent<AudioSource>();
     }
-	// Update is called once per frame
-	void Update () {
+	/// <summary>
+    /// If the player died, execute the following orders:
+    ///     -disable the player body
+    ///     -center him
+    ///     -play sound
+    ///     -blink until timer runs out and reenable the object
+    /// </summary>
+	private void Update () {
         if (!alive)
         {
             arrow_rend.enabled = false;
@@ -36,12 +44,31 @@ public class Spawn_Management : MonoBehaviour {
             Blink(player.self);                  
         }
 	}
+    /// <summary>
+    /// Pass on the object sprite that will be blinking
+    /// </summary>
+    /// <param name="spawnedObject">
+    /// Player that died
+    /// </param>
     private void Blink(GameObject spawnedObject)
     {
         SpriteRenderer renderer = spawnedObject.GetComponent<SpriteRenderer>();
         StartCoroutine(Blinker(renderer, spawnedObject, arrow_rend));
     }
-
+    /// <summary>
+    /// This Virtual Thread will blink the player's sprite until the timer runs out 
+    /// Once he's done, renable the player and stop the blinking
+    /// </summary>
+    /// <param name="renderer">
+    /// Player's render
+    /// </param>
+    /// <param name="obj">
+    /// Player's object
+    /// </param>
+    /// <param name="arrow_rend">
+    /// The arrow of where the player points at
+    /// </param>
+    /// <returns></returns>
     private IEnumerator Blinker(SpriteRenderer renderer, GameObject obj, SpriteRenderer arrow_rend)
     {
         renderer.color = Color.grey;

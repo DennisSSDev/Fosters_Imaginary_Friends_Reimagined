@@ -1,29 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// This class is specifically to spawn the particles of the player when he dies and respawns
+/// </summary>
 public class ParticelEmission : MonoBehaviour {
-
-
     public GameObject particles;
     public Spawn_Management spwn_Ref;
-    List<GameObject> sys = new List<GameObject>();
-    bool canPlay = false;
-    GameObject shipLoc;
-    float timer = 5f;
-	// Use this for initialization
-	void Start () {
-        
-    }
+    private List<GameObject> sys = new List<GameObject>();
+    private bool canPlay = false;
+    private GameObject shipLoc;
+    private float timer = 5f;
 	
-	// Update is called once per frame
-	void Update () {
-        
+	/// <summary>
+    /// Check for player's death, If he is, spawn the particles
+    /// Once done, Destroy the particle
+    /// </summary>
+	private void Update () {
         if (spwn_Ref.alive == false)
         {
             canPlay = true;
-        }
-        
+        }       
         if (canPlay)
         {
             Instantiate(particles, spwn_Ref.player.transform.position, Quaternion.identity);
@@ -32,8 +28,10 @@ public class ParticelEmission : MonoBehaviour {
         }
         FindAndDestroy();
 	}
-
-    void FindAndDestroy()
+    /// <summary>
+    /// Method that looks for unused particles in the level and destroys them (According to their tag) 
+    /// </summary>
+    private void FindAndDestroy()
     {
         GameObject[] allParticleEmitters = GameObject.FindGameObjectsWithTag("Particles");
         for (int i = 0; i < allParticleEmitters.Length; i++)

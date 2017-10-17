@@ -1,26 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
+/// <summary>
+/// Optimized Collision for Multiplayer(In the future will switch to inheritance)
+/// </summary>
 public class PvPCollision : MonoBehaviour {
-    bool collide = false;
+    private bool collide = false;
     public bool output = false;
-    Vector3 radius1;
-    Vector3 radius2;
-    Vector3 bulRadius;
-
+    private Vector3 radius1;
+    private Vector3 radius2;
+    private Vector3 bulRadius;
     public SpriteRenderer bulRend;
     public Animator anim_ref;
     // Use this for initialization
     public GameObject ship;
     public GameObject ship2;
     /// <summary>
-    /// Finds Collision using the AABB algorithm
+    /// Run the circle algorithm
     /// </summary>
-    /// <returns>
-    /// 
-    /// </returns>
-    /// 
     private void Update()
     {
         output = CirclesCollision();
@@ -28,8 +23,11 @@ public class PvPCollision : MonoBehaviour {
     }
     /// <summary>
     /// Using the circular algorithm for precise collisions
+    /// In case the bullet of the first palyer collides with the body of the other, deactivate him
     /// </summary>
-    /// <returns></returns>
+    /// <returns>
+    /// for now, it doesn't return anything substantial, will change to use that bool for elastic bounce between the players
+    /// </returns>
     public bool CirclesCollision()
     {
         SpriteRenderer rendS = ship.GetComponent<SpriteRenderer>();
@@ -46,6 +44,4 @@ public class PvPCollision : MonoBehaviour {
             }
         return collide;
     }
-
-
 }

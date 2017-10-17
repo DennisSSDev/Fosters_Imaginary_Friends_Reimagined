@@ -1,19 +1,22 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+//Class for fading out
 public class FadeOut : MonoBehaviour {
-
-    bool allowed = false;
+   private bool allowed = false;
 	// Use this for initialization
-	void Start () {
+	private void Start () {
         StartCoroutine(PerformFade());
 	}
-    IEnumerator PerformFade()
+    /// <summary>
+    /// A coroutine that would perform the fade out and load the next scende once it's done
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator PerformFade()
     {
         yield return new WaitForSeconds(3f);
         float fadeTime = GetComponent<FadeIn>().BeginFade(1);
-        yield return new WaitForSeconds(fadeTime+2f);
+        yield return new WaitForSeconds(fadeTime+2f);//Wait for this amount of time and continue running
         SceneManager.LoadScene(1);
     }
 

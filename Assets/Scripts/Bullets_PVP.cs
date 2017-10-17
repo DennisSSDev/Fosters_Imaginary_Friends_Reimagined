@@ -1,28 +1,34 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Optimized version of the bullet class for PvP shooting
+/// Post mortem: I kinda realized that using inheritance would've been great with overriding some methods,
+/// will do that in the future
+/// </summary>
 public class Bullets_PVP : MonoBehaviour
 {
+    /*start of public*/
     public Player_Script status;
     public GameObject bullet;
-    const float bul_acc = 0.14f;
-    Vector3 bul_Direction;
     public Stack stack;
-    GameObject obj;
-    float nextFire = 0f;
-    public AudioClip[] bloo_sounds;
     public PvPCollision colission;
-    private AudioSource source_shot;
     public KeyCode shootButton;
-    // Use this for initialization
-    void Start()
+    /*end of public*/
+    private const float bul_acc = 0.14f;
+    private Vector3 bul_Direction;
+    private GameObject obj;
+    private float nextFire = 0f;
+    /// <summary>
+    /// Check Bullet Class
+    /// </summary>
+    private void Start()
     {
         stack = new Stack();
-        source_shot = GetComponent<AudioSource>();
     }
-    // Update is called once per frame
-    void Update()
+    /// <summary>
+    /// Here we do similar stuff as in Bullet, but the shooting button can be adjusted through the editor
+    /// </summary>
+    private void Update()
     {
         if (Input.GetKeyDown(shootButton) && Time.time > nextFire)
         {
@@ -35,7 +41,10 @@ public class Bullets_PVP : MonoBehaviour
             StartCoroutine(moveBullet(bul_Direction));
         }
     }
-    IEnumerator moveBullet(Vector3 dir)
+    /// <summary>
+    /// Check Bullet Class
+    /// </summary>
+    private IEnumerator moveBullet(Vector3 dir)
     {
         GameObject obj = (GameObject)stack.Peek();
         colission.bulRend = obj.GetComponent<SpriteRenderer>();
@@ -53,9 +62,4 @@ public class Bullets_PVP : MonoBehaviour
         }
         Destroy(obj);
     }
-
-
-
-
-
 }

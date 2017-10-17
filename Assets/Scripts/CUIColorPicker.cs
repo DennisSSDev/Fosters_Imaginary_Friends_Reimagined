@@ -1,6 +1,19 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+/// <summary>
+/// 
+/// 
+/// !!!!!IMPORTANT!!!!
+/// 
+/// 
+/// This script doesn't belong to me. I used this API for creating a pizza color picker
+/// 
+/// 
+/// Credit: github.com/zloedi/cui_color_picker
+/// </summary>
+
+
 
 public class CUIColorPicker : MonoBehaviour
 {
